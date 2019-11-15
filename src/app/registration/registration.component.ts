@@ -5,13 +5,21 @@ import { StudentService} from '../service/student/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   studentFormGroup: FormGroup;
   user: any = [];
+  NameData: any =[
+    {
+      id: '1',name: 'Pakrinha'
+    },
+    {
+      id: '2',name: 'hello'
+    }
+  ]
   constructor(
     private router: Router,
     private formBuilder:FormBuilder,

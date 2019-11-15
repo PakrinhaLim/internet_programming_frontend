@@ -4,21 +4,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class StudentService {
-  public API_URL = 'http://localhost/InternetProgramming/backend/public/api/v1';
-  public path= 'students';
-  constructor(
-    protected http: HttpClient,
-    
-  ) { }
+
+  constructor(private http: HttpClient, ) { }
 
   getAll() {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.API_URL}/${this.path}`)
+      this.http.get("http://localhost/InternetProgramming/backend/public/api/v1/students")
         .subscribe(data => {
           resolve(data)
         }, error => {
@@ -27,17 +23,37 @@ export class StudentService {
     })
   }
 
-  // get(id: number): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     this.http
-  //       .get(`${StudentService.API_URL}/${this.path}/${id}`)
-  //       .toPromise()
-  //       .then((response: any) => {
-  //         response.status === "error" ? reject(response) : resolve(response);
-  //       })
-  //       .catch(error => {
-  //         // this.handleError(error);
-  //       });
-  //   });
-  // }
+  addData(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post("http://localhost/InternetProgramming/backend/public/api/v1/students/add", data, httpOptions)
+        .subscribe(data => {
+          resolve(data)
+        }, error => {
+          reject(error)
+        })
+    })
+  }
+
+  updateData(data, id) {
+    return new Promise((resolve, reject) => {
+      this.http.put("http://localhost/InternetProgramming/CRUDLumen-master/public/api/v1/updateData/" + id, data, httpOptions)
+        .subscribe(data => {
+          resolve(data)
+        }, error => {
+          reject(error)
+        })
+    })
+  }
+
+  deleteData(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete("http://localhost/InternetProgramming/CRUDLumen-master/public/api/v1/deleteData/" + id, httpOptions)
+        .subscribe(data => {
+          resolve(data)
+        }, error => {
+          reject(error)
+        })
+    })
+  }
+
 }
